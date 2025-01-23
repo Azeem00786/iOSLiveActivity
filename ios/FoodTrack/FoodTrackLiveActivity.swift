@@ -9,127 +9,72 @@ import ActivityKit
 import WidgetKit
 import SwiftUI
 
-struct FoodDeliveryAttributes: ActivityAttributes {
+struct FoodTrackAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
-        var status: String
-        var eta: String
-        var driverName: String
-        var orderNumber: String
+        // Dynamic stateful properties about your activity go here!
+        var emoji: String
     }
 
-    var restaurantName: String
-    var restaurantLogo: String
-}
-
-struct FoodTrackLiveActivityView: View {
-    let context: ActivityViewContext<FoodDeliveryAttributes>
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                AsyncImage(url: URL(string: context.attributes.restaurantLogo)) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 40, height: 40)
-                .clipShape(Circle())
-                
-                VStack(alignment: .leading) {
-                    Text(context.attributes.restaurantName)
-                        .font(.headline)
-                    Text("Order #\(context.state.orderNumber)")
-                        .font(.subheadline)
-                }
-            }
-            
-            Divider()
-            
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Status: \(context.state.status)")
-                Text("Driver: \(context.state.driverName)")
-                Text("ETA: \(context.state.eta)")
-            }
-            .font(.subheadline)
-        }
-        .padding()
-        .activityBackgroundTint(Color.white)
-        .activitySystemActionForegroundColor(Color.black)
-    }
+    // Fixed non-changing properties about your activity go here!
+    var name: String
 }
 
 struct FoodTrackLiveActivity: Widget {
     var body: some WidgetConfiguration {
-        ActivityConfiguration(for: FoodDeliveryAttributes.self) { context in
-            FoodTrackLiveActivityView(context: context)
+        ActivityConfiguration(for: FoodTrackAttributes.self) { context in
+            // Lock screen/banner UI goes here
+            VStack {
+                Text("Hello \(context.state.emoji)")
+            }
+            .activityBackgroundTint(Color.cyan)
+            .activitySystemActionForegroundColor(Color.black)
+
         } dynamicIsland: { context in
             DynamicIsland {
+                // Expanded UI goes here.  Compose the expanded UI through
+                // various regions, like leading/trailing/center/bottom
                 DynamicIslandExpandedRegion(.leading) {
-                    AsyncImage(url: URL(string: context.attributes.restaurantLogo)) { image in
-                        image.resizable()
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    .frame(width: 30, height: 30)
-                    .clipShape(Circle())
+                    Text("Leading")
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text(context.state.status)
-                }
-                DynamicIslandExpandedRegion(.center) {
-                    Text("Order #\(context.state.orderNumber)")
+                    Text("Trailing")
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    VStack(alignment: .leading) {
-                        Text("Driver: \(context.state.driverName)")
-                        Text("ETA: \(context.state.eta)")
-                    }
+                    Text("Bottom \(context.state.emoji)")
+                    // more content
                 }
             } compactLeading: {
-                Text("🍔")
+                Text("L")
             } compactTrailing: {
-                Text(context.state.eta)
+                Text("T \(context.state.emoji)")
             } minimal: {
-                Text("🍔")
+                Text(context.state.emoji)
             }
-            .widgetURL(URL(string: "foodpanda://order/\(context.state.orderNumber)"))
-            .keylineTint(Color.orange)
+            .widgetURL(URL(string: "http://www.apple.com"))
+            .keylineTint(Color.red)
         }
     }
 }
 
-extension FoodDeliveryAttributes {
-    fileprivate static var preview: FoodDeliveryAttributes {
-        FoodDeliveryAttributes(
-            restaurantName: "Burger King",
-            restaurantLogo: "https://logo.com/burgerking.png"
-        )
+extension FoodTrackAttributes {
+    fileprivate static var preview: FoodTrackAttributes {
+        FoodTrackAttributes(name: "World")
     }
 }
 
-extension FoodDeliveryAttributes.ContentState {
-    fileprivate static var preparing: FoodDeliveryAttributes.ContentState {
-        FoodDeliveryAttributes.ContentState(
-            status: "Preparing",
-            eta: "15 mins",
-            driverName: "John Doe",
-            orderNumber: "12345"
-        )
-    }
+extension FoodTrackAttributes.ContentState {
+    fileprivate static var smiley: FoodTrackAttributes.ContentState {
+        FoodTrackAttributes.ContentState(emoji: "😀")
+     }
      
-    fileprivate static var onTheWay: FoodDeliveryAttributes.ContentState {
-        FoodDeliveryAttributes.ContentState(
-            status: "On the way",
-            eta: "8 mins",
-            driverName: "John Doe",
-            orderNumber: "12345"
-        )
-    }
+     fileprivate static var starEyes: FoodTrackAttributes.ContentState {
+         FoodTrackAttributes.ContentState(emoji: "🤩")
+     }
 }
 
-#Preview("Notification", as: .content, using: FoodDeliveryAttributes.preview) {
+#Preview("Notification", as: .content, using: FoodTrackAttributes.preview) {
    FoodTrackLiveActivity()
 } contentStates: {
-    FoodDeliveryAttributes.ContentState.preparing
-    FoodDeliveryAttributes.ContentState.onTheWay
+    FoodTrackAttributes.ContentState.smiley
+    FoodTrackAttributes.ContentState.starEyes
 }

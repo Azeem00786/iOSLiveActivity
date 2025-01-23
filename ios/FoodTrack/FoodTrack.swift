@@ -61,34 +61,18 @@ struct FoodTrack: Widget {
     let kind: String = "FoodTrack"
 
     var body: some WidgetConfiguration {
-        ActivityConfiguration(for: FoodDeliveryAttributes.self) { context in
-            // Live Activity view
-            FoodTrackLiveActivityView(context: context)
-        } dynamicIsland: { context in
-            DynamicIsland {
-                // Expanded views
-                DynamicIslandExpandedRegion(.leading) {
-                    Text("🍔")
-                }
-                DynamicIslandExpandedRegion(.trailing) {
-                    Text("🍟")
-                }
-                DynamicIslandExpandedRegion(.center) {
-                    Text("Food Delivery")
-                }
-                DynamicIslandExpandedRegion(.bottom) {
-                    Text("ETA: \(context.state.eta)")
-                }
-            } compactLeading: {
-                Text("🍔")
-            } compactTrailing: {
-                Text("🍟")
-            } minimal: {
-                Text("🍔")
+        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+            if #available(iOS 17.0, *) {
+                FoodTrackEntryView(entry: entry)
+                    .containerBackground(.fill.tertiary, for: .widget)
+            } else {
+                FoodTrackEntryView(entry: entry)
+                    .padding()
+                    .background()
             }
         }
-        .configurationDisplayName("Food Delivery")
-        .description("Track your food delivery status")
+        .configurationDisplayName("My Widget")
+        .description("This is an example widget.")
     }
 }
 
