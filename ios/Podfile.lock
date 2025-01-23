@@ -1517,8 +1517,11 @@ DEPENDENCIES:
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
   - React-callinvoker (from `../node_modules/react-native/ReactCommon/callinvoker`)
+  - React-Core
   - React-Core (from `../node_modules/react-native/`)
+  - React-Core/DevSupport
   - React-Core/RCTWebSocket (from `../node_modules/react-native/`)
+  - React-CoreModules
   - React-CoreModules (from `../node_modules/react-native/React/CoreModules`)
   - React-cxxreact (from `../node_modules/react-native/ReactCommon/cxxreact`)
   - React-debug (from `../node_modules/react-native/ReactCommon/react/debug`)
@@ -1754,10 +1757,10 @@ SPEC CHECKSUMS:
   React-performancetimeline: 631ef8ac4246bca49c07b88cd1ad85ce460b97bf
   React-RCTActionSheet: 25eb72eabade4095bfaf6cd9c5c965c76865daa8
   React-RCTAnimation: 04c987fa858fa16169f543d29edb4140bd35afa9
-  React-RCTAppDelegate: 874e34651ed9fdf7b66d02970de16910791b3738
+  React-RCTAppDelegate: b2707904e4f8ad92fd052e62684bf0c3b88381cc
   React-RCTBlob: 1f214a7211632515805dd1f1b81fac70d12f812d
-  React-RCTFabric: a7e90eb2d21d3019f7d7f2fc9190211623f183b1
-  React-RCTFBReactNativeSpec: 7bc548f75e94467352380681dc9d5384eacb91b8
+  React-RCTFabric: 10f8b1ceac3c2feb3ddbede8a70c3410c68d79fe
+  React-RCTFBReactNativeSpec: 60d72b45a150ca35748b9a77028674b1e56a2e43
   React-RCTImage: e516d72739797fb7c1dac5c691f02a0f5445c290
   React-RCTLinking: 1e5554afe4f959696ad3285738c1510f2592f220
   React-RCTNetwork: 65e1e52c8614dcab342fa1eaec750ca818160e74
@@ -1778,8 +1781,8 @@ SPEC CHECKSUMS:
   ReactCodegen: 1baa534318b19e95fb0f02db0a1ae1e3c271944d
   ReactCommon: 6014af4276bb2debc350e2620ef1bd856b4d981c
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  Yoga: c0d8564af14a858f962607cd7306539cb2ace926
+  Yoga: 78d74e245ed67bb94275a1316cdc170b9b7fe884
 
-PODFILE CHECKSUM: c3835e637dacc63bea7dc58df155d5c50465eadd
+PODFILE CHECKSUM: ecf305a89d789f49755d938c63774aaf05324eed
 
 COCOAPODS: 1.15.2
